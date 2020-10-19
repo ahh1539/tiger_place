@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://people.rit.edu/~dmb4086/TigerX/main.css">
+  </head>
+  <body>
+    <div class="container colorx">
+      <div class="header-clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right" style="padding-top: 15px;">
+            <a href="/sell"class="Loginbtn Loginbtn--a mbm">Sell</a>
+            <a href="/"><button class="Loginbtn Loginbtn--a mbm">Login</button></a>
+            <a href="/signup"><button class="Loginbtn Loginbtn--a mbm">Signup</button></a>
+          </ul>
+        </nav>
+
+      </div>
+    </div> <!-- /container -->
+    {% block body %}
+    {% endblock %}
+    <footer class="footer" style="padding-left: 25px;">
+      <p>© 2020 The lads</p>
+    </footer>
+  </body>
+</html>

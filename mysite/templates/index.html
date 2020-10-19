@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+
+<head>
+  <link rel="stylesheet" href="https://people.rit.edu/~dmb4086/TigerX/main.css">
+</head>
+
+
+
+<div class="container" style="display: contents;">
+  <div class="jumbotron" style="background-color:#f76902; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; border-top-right-radius: 0px; border-top-left-radius: 0px;">
+    <div style="text-align: center;">
+      <img src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px;" />
+    </div>
+    <br>
+    <form class="search-container" onsubmit="">
+      <input type="text" id="search-bar" placeholder="Search">
+      <a href="#"><img class="search-icon" src="https://img.icons8.com/ios/452/search--v1.png"></a>
+    </form>
+</div>
+<br>
+
+
+<div id="yeetitems">
+  <div class="container">
+    <div class="row">
+      {% if res %}
+        {% for item in res %}
+        <div class="col-sm-6 col-md-4">
+          <figure class="snip1527" style="box-shadow: 2px 2px 3px 3px #CCC; border-radius: 2px;">
+            <div class="image">
+              {% if item.img_path %}
+                <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" alt="pr-sample23" />
+              {% else %}
+                <img src="{{url_for('static', filename = 'no_image.png')}}" alt="pr-sample23" />
+              {% endif %}
+            </div>
+            <figcaption>
+              <div class="date"><span class="month">${{ item.price }}</span></div>
+              <h3>{{ item.name }}</h3>
+              <p>
+                {{ item.description }}
+              </p>
+            </figcaption>
+            <a href="/expanded-card/{{item.item_id}}"></a>
+          </figure>
+        </div>
+        {% endfor %}
+      {% endif %}
+      <!--<div class="col-sm-6 col-md-4">-->
+      <!--  <figure class="snip1527" style="box-shadow: 2px 2px 3px 3px #CCC; border-radius: 2px;">-->
+      <!--    <div class="image"><img src="https://i.imgur.com/p6riKDp.jpeg" alt="pr-sample23" /></div>-->
+      <!--    <figcaption>-->
+      <!--      <div class="date"><span class="month">$11</span></div>-->
+      <!--      <h3>History Textbook</h3>-->
+      <!--      <p>-->
+      <!--        I used this last year and really enjoyed it, i hope it can find a great home!-->
+      <!--      </p>-->
+      <!--    </figcaption>-->
+      <!--    <a href="/expanded-card"></a>-->
+      <!--  </figure>-->
+      <!--</div>-->
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function myFunction() {
+  var x = document.getElementById("yeetitems");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,71 @@
+
+<link href="https://people.rit.edu/~dmb4086/TigerX/expanded.css" rel="stylesheet">
+
+
+<head>
+    <link rel="stylesheet" href="https://people.rit.edu/~dmb4086/TigerX/expanded.css">
+</head>
+    <body>
+
+      <div class="shadow-lg" style="padding-left: 15px; padding-top: 15px;">
+        <a href="/home"class="Loginbtn Loginbtn--a mbm">Home</a>
+    </div>
+
+<nav class="flex-nav">
+  <div class="container">
+    <div class="grid menu">
+    </div>
+  </div>
+</nav>
+<main>
+
+  <div class="container">
+    <div class="grid second-nav">
+    </div>
+    <div class="grid product">
+      <div class="column-xs-12 column-md-7">
+        <div class="product-gallery">
+          <div class="product-image">'
+          {% if item.img_path %}
+            <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" alt="pr-sample23" />
+          {% else %}
+            <img src="{{url_for('static', filename = 'no_image.png')}}" alt="pr-sample23" />
+          {% endif %}
+          </div>
+          <ul class="image-list">
+            <li class="image-item"><img src="https://s3.amazonaws.com/furniture.retailcatalog.us/products/1689620/large/1560greyorig.jpg"></li>
+            <li class="image-item"><img src="https://www.livingspaces.com/globalassets/productassets/200000-299999/220000-229999/223000-223999/223500-223599/223508/223508_0.jpg?w=1911&h=1288&mode=pad"></li>
+            <li class="image-item"><img src="https://cdn-images.article.com/products/SKU322/2890x1500/image22850.jpg?fit=max&w=1920&q=50"></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="column-xs-12 column-md-5">
+        <h1>{{item.name}}</h1>
+        <h2>${{item.price}}</h2>
+        <div class="description">
+          <p>{{item.description}}</p>
+          <br><strong style="color: #333"> Email: {{user.email}}  <br> Phone: {{user.phone_number}} </strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="grid related-products">
+      <div class="column-xs-12">
+        <h3>You may also like</h3>
+      </div>
+      <div class="column-xs-12 column-md-4">
+        <img src="https://www.ikea.com/us/en/images/products/stefan-chair-brown-black__0727320_PE735593_S5.JPG?f=s">
+        <h4>Chair</h4>
+      </div>
+      <div class="column-xs-12 column-md-4">
+        <img src="https://www.ikea.com/us/en/images/products/arstid-table-lamp-with-light-bulb__0609332_PE684455_S5.JPG?f=s">
+        <h4>Lamp</h4>
+      </div>
+      <div class="column-xs-12 column-md-4">
+        <img src="https://www.ikea.com/us/en/images/products/pello-armchair__38296_PE130209_S5.JPG?f=xs">
+        <h4>Armchair</h4>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
