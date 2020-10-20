@@ -132,7 +132,6 @@ def sell_item():
             print('there is no file1 in form!')
         else:
             file1 = request.files['pic']
-            print(app.config['UPLOAD_FOLDER'], 'heheheheh', file1.filename, request.files)
             path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
             file1.save(path)
             fileName = file1.filename
@@ -142,6 +141,18 @@ def sell_item():
         db.session.add(item)
         db.session.commit()
         return render_template("created.html")
+
+
+@app.route('/delete-item/<item_id>', methods=['GET', 'POST'])
+def delete_item(item_id):
+    item = Item.query.filter(Item.item_id == item_id).one()
+    if session.get('user_id') == item.user_id:
+        os.remove(app.config['UPLOAD_FOLDER']+'{}'.format(item.img_path))
+        db.session.delete(item)
+        db.session.commit()
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('expanded-card'))
 
 
 @app.route('/expanded-card/<item_id>', methods=['GET', 'POST'])
@@ -154,7 +165,7 @@ def expanded_card(item_id):
     if item_id:
         item = Item.query.filter(Item.item_id == item_id).one()
         user = User.query.filter(User.user_id == item.user_id).one()
-        return render_template("card-expanded.html", item=item, user=user)
+        return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'))
 
 
 
