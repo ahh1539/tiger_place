@@ -19,16 +19,16 @@
       <div style="text-align: center;">
         <form method="post" action="/sell_item" enctype="multipart/form-data">
             <div class="form-group">
-              <input type="text" class="form-control" name="Item_Name" placeholder="Item Name" style="border:1px solid #f76902">
+              <input type="text" class="form-control" name="Item_Name" placeholder="Item Name" style="border:1px solid #f76902" required>
             </div>
             <div class="form-group">
-              <input type="number" class="form-control" name="Price" placeholder="Price" style="border:1px solid #f76902">
+              <input type="number" class="form-control" name="Price" placeholder="Price" style="border:1px solid #f76902" required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="Description" placeholder="Description" style="border:1px solid #f76902">
+                 <textarea rows="7" cols="30" class="form-control" name="Description" placeholder="Description" style="border:1px solid #f76902" required></textarea>
             </div>
             <div class="form-group">
-              <input type="file" name="pic" accept="image/*">
+              <input type="file" placeholder="Select Picture" name="pic" accept="image/*" required>
               <input type="submit" value="Submit" class="btn-2-dev btn-2-dev--a mbm">
             </div>
         </form>
