@@ -72,6 +72,7 @@ def signup_confirmation():
         return render_template("sign-up-confirm.html")
     return 'Cannot make an account for you at this time'
 
+
 @app.route('/about')
 def about():
     if session.get('user_id'):
@@ -149,8 +150,19 @@ def expanded_card(item_id):
     if item_id:
         item = Item.query.filter(Item.item_id == item_id).one()
         user = User.query.filter(User.user_id == item.user_id).one()
-        return render_template("card-expanded.html", item=item, user=user)
+        return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'))
 
+
+@app.route('/delete-item/<item_id>', methods=['GET', 'POST'])
+def delete_item(item_id):
+    item = Item.query.filter(Item.item_id == item_id).one()
+    if session.get('user_id') == item.user_id:
+        os.remove(app.config['UPLOAD_FOLDER']+'{}'.format(item.img_path))
+        db.session.delete(item)
+        db.session.commit()
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('expanded-card'))
 
 
 def check_signed_in():
