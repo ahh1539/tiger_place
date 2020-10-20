@@ -2,9 +2,17 @@ import os
 from flask import Flask, render_template, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
+import sshtunnel
 
 app = Flask(__name__)
-
+# tunnel = sshtunnel.SSHTunnelForwarder(
+#         ('ssh.pythonanywhere.com'), ssh_username='ahh1539', ssh_password='fvTSYgh$HzB7J23',
+#         remote_bind_address=('ahh1539.mysql.pythonanywhere-services.com', 3306)
+#     )
+# tunnel.start()
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://ahh1539:g3gd@XEbiU7H7Ri@127.0.0.1:{}/ahh1539$pyanywhere_tigerplace'.format(tunnel.local_bind_port)
+app.secret_key = 'super secret key'
+# app.config["DEBUG"] = True
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="ahh1539",
     password="g3gd@XEbiU7H7Ri",
@@ -15,9 +23,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['UPLOAD_FOLDER'] = 'mysite/static/'
-app.secret_key = 'super secret key'
-
 db = SQLAlchemy(app)
+
+
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -48,7 +56,6 @@ def login():
     error = None
     # print('tunnel: ', tunnel, ' db: ', db)
     if request.method == 'POST':
-        print(request.form)
         user = User.query.filter(User.email == request.form['username']).all()
         if user and check_password_hash(user[0].password, request.form['password']):
             session['user_id'] = user[0].user_id
