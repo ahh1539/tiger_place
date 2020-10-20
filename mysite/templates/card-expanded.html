@@ -9,6 +9,9 @@
 
       <div class="shadow-lg" style="padding-left: 15px; padding-top: 15px;">
         <a href="/home"class="Loginbtn Loginbtn--a mbm">Home</a>
+        {% if user.user_id == current_usr %}
+          <a href="/delete-item/{{item.item_id}}"class="Loginbtn Loginbtn--a mbm">Delete Posting</a>
+        {% endif %}
     </div>
 
 <nav class="flex-nav">
