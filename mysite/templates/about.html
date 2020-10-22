@@ -1,8 +1,10 @@
 {% extends "base.html" %}
+
 {% block title %}About{% endblock %}
 
 {% block body %}
-
-
-
+    {{super()}}
+    {% block footer %}
+        {{super()}}
+    {% endblock %}
 {% endblock %}

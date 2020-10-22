@@ -53,8 +53,9 @@ class Item(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    if session.get('user_id'):
+        return redirect(url_for('index'))
     error = None
-    # print('tunnel: ', tunnel, ' db: ', db)
     if request.method == 'POST':
         user = User.query.filter(User.email == request.form['username']).all()
         if user and check_password_hash(user[0].password, request.form['password']):
