@@ -1,5 +1,7 @@
-# vim: set ft=rst:
+# Steps to run:
 
-See https://help.pythonanywhere.com/ (or click the "Help" link at the top
-right) for help on how to use PythonAnywhere, including tips on copying and
-pasting from consoles, and writing your own web applications.
+- git clone https://github.com/ahh1539/tiger_place.git
+- pip3 install flask
+- pip install Flask-SQLAlchemy
+- pip3 install mysql-connector
+- pip3 install sshtunnel
