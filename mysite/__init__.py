@@ -3,8 +3,10 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 import sshtunnel
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+Bootstrap(app)
 tunnel = sshtunnel.SSHTunnelForwarder(
         ('ssh.pythonanywhere.com'), ssh_username='ahh1539', ssh_password='fvTSYgh$HzB7J23',
         remote_bind_address=('ahh1539.mysql.pythonanywhere-services.com', 3306)
@@ -47,10 +49,11 @@ class Item(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    if session.get('user_id'):
+        return redirect(url_for('index'))
     error = None
     # print('tunnel: ', tunnel, ' db: ', db)
     if request.method == 'POST':
-        print(request.form)
         user = User.query.filter(User.email == request.form['username']).all()
         if user and check_password_hash(user[0].password, request.form['password']):
             session['user_id'] = user[0].user_id
