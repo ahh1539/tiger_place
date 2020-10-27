@@ -2,9 +2,11 @@ import os
 from flask import Flask, render_template, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
-import sshtunnel
+# import sshtunnel
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+Bootstrap(app)
 # tunnel = sshtunnel.SSHTunnelForwarder(
 #         ('ssh.pythonanywhere.com'), ssh_username='ahh1539', ssh_password='fvTSYgh$HzB7J23',
 #         remote_bind_address=('ahh1539.mysql.pythonanywhere-services.com', 3306)
