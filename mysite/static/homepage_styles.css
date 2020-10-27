@@ -3,3 +3,8 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+#HASH {
+    display: flex;
+    justify-content: space-between;
+  }
