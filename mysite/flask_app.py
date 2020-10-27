@@ -123,7 +123,7 @@ def sell_item():
         Description = request.form['Description']
 
         if 'pic' not in request.files:
-            print('there is no file1 in form!')
+            print('there is no image in form!')
         else:
             file1 = request.files['pic']
             path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
