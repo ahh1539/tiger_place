@@ -169,7 +169,8 @@ def expanded_card(item_id):
     if item_id:
         item = Item.query.filter(Item.item_id == item_id).one()
         user = User.query.filter(User.user_id == item.user_id).one()
-        return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'))
+        suggested_items = Item.query.filter(Item.item_id != item_id).limit(3).all()
+        return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'), suggested_items=suggested_items)
 
 
 @app.route('/profile/<user_id>', methods=['GET', 'POST'])

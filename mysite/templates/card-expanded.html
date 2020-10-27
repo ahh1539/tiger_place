@@ -55,18 +55,12 @@
       <div class="column-xs-12">
         <h3>You may also like</h3>
       </div>
-      <div class="column-xs-12 column-md-4">
-        <img src="https://www.ikea.com/us/en/images/products/stefan-chair-brown-black__0727320_PE735593_S5.JPG?f=s">
-        <h4>Chair</h4>
-      </div>
-      <div class="column-xs-12 column-md-4">
-        <img src="https://www.ikea.com/us/en/images/products/arstid-table-lamp-with-light-bulb__0609332_PE684455_S5.JPG?f=s">
-        <h4>Lamp</h4>
-      </div>
-      <div class="column-xs-12 column-md-4">
-        <img src="https://www.ikea.com/us/en/images/products/pello-armchair__38296_PE130209_S5.JPG?f=xs">
-        <h4>Armchair</h4>
-      </div>
+      {% for item in suggested_items %}
+        <div class="column-xs-12 column-md-4">
+          <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" height="400" width="400">
+          <h4>{{item.name}}</h4>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </main>
