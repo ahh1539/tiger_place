@@ -56,12 +56,12 @@
         <h3>You may also like</h3>
       </div>
       {% for item in suggested_items %}
-        <a href="/expanded-card/{{item.item_id}}">
           <div class="column-xs-12 column-md-4">
-            <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" height="400" width="400">
+            <a href="/expanded-card/{{item.item_id}}">
+                <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" style="height: 400px; width: 400px;">
+            </a>
             <h4>{{item.name}}</h4>
           </div>
-        </a>
       {% endfor %}
     </div>
   </div>
