@@ -5,3 +5,4 @@
 - pip install Flask-SQLAlchemy
 - pip3 install mysql-connector
 - pip3 install sshtunnel
+- pip3 install flask_bootstrap
