@@ -86,13 +86,19 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/home')
+@app.route('/home', methods=['POST','GET'])
 def index():
     if session.get('user_id'):
         pass
     else:
         return redirect(url_for('login'))
+
     items = Item.query.all()
+    if request.method == 'POST': # if sent a post request via the search bar
+        search_input = str(request.form['search_input'])
+        items = Item.query.filter(Item.name.like('{}%'.format(search_input)))
+        return render_template("index.html", res=items, user_id=session.get('user_id'),user_name=session['user_name'])
+
     return render_template("index.html", res=items, user_id=session.get('user_id'),user_name=session['user_name'])
 
 
