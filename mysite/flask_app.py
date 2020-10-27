@@ -62,6 +62,7 @@ def login():
         user = User.query.filter(User.email == request.form['username']).all()
         if user and check_password_hash(user[0].password, request.form['password']):
             session['user_id'] = user[0].user_id
+            session['user_name'] = user[0].full_name
             return redirect(url_for('index'))
         error = "Invalid Credentials"
     return render_template("login.html", error=error)
@@ -96,7 +97,7 @@ def index():
     else:
         return redirect(url_for('login'))
     items = Item.query.all()
-    return render_template("index.html", res=items)
+    return render_template("index.html", res=items, user_id=session.get('user_id'),user_name=session['user_name'])
 
 
 @app.route('/logout')
@@ -132,7 +133,7 @@ def sell_item():
         Description = request.form['Description']
 
         if 'pic' not in request.files:
-            print('there is no file1 in form!')
+            print('there is no image in form!')
         else:
             file1 = request.files['pic']
             path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
@@ -170,6 +171,15 @@ def expanded_card(item_id):
         user = User.query.filter(User.user_id == item.user_id).one()
         return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'))
 
+
+@app.route('/profile/<user_id>', methods=['GET', 'POST'])
+def profile_page(user_id):
+    if int(session.get('user_id')) == int(user_id):
+        user = User.query.filter(User.user_id == user_id).first()
+        user_items = Item.query.filter(Item.user_id == user.user_id)
+        return render_template("profile_page.html", user=user, items=user_items)
+    else:
+        return redirect(url_for('index'))
 
 
 def check_signed_in():
