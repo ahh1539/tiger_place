@@ -18,3 +18,39 @@ footer {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
  }
+
+ .typewriter {
+  border-right: solid 3px black;
+  white-space: nowrap;
+  overflow: hidden;    
+  font-size: 60px;
+  margin: 0 auto;
+}
+
+/* Animation */
+.typewriter {
+  animation: animated-text 4s steps(29,end) 1s 1 normal both,
+             animated-cursor 600ms steps(29,end) infinite;
+}
+
+/* text animation */
+
+@keyframes animated-text{
+  from{width: 0;}
+  to{width: 635px;}
+}
+
+/* cursor animations */
+
+@keyframes animated-cursor{
+  from{border-right-color:black;}
+  to{border-right-color: transparent;}
+}
+
+.wave-container {
+  position: relative;
+  background: #f76902;
+  color: #FFF;
+  text-align: center;
+  overflow: hidden;
+}
