@@ -53,7 +53,12 @@ class Item(db.Model):
     deleted_at = db.Column(db.DateTime)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def splash_page():
+    return render_template("splash-page.html")
+
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if session.get('user_id'):
         return redirect(url_for('index'))

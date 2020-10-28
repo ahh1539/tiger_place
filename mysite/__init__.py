@@ -47,7 +47,7 @@ class Item(db.Model):
     deleted_at = db.Column(db.DateTime)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if session.get('user_id'):
         return redirect(url_for('index'))
@@ -61,6 +61,11 @@ def login():
             return redirect(url_for('index'))
         error = "Invalid Credentials"
     return render_template("login.html", error=error)
+
+
+@app.route('/')
+def splash_page():
+    return render_template("splash-page.html")
 
 
 @app.route('/signup_confirmation', methods=['POST'])
