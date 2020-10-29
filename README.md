@@ -2,7 +2,7 @@
 <https://ahh1539.pythonanywhere.com/>
 # Getting Started:
 
-## Getting environment set up
+## Getting the environment set up
 ```
 git clone https://github.com/ahh1539/tiger_place.git
 ```
@@ -17,7 +17,7 @@ pip3 install mysql-connector
 pip3 install sshtunnel
 pip3 install flask_bootstrap
 ```
-## Running Application:
+## Running the App:
 ```
 python3 flask_app.py
 ```
