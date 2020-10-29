@@ -1,5 +1,5 @@
 # Visit our live app:
-<https://ahh1539.pythonanywhere.com/home>
+<https://ahh1539.pythonanywhere.com/>
 # Getting Started:
 
 ## Getting environment set up
