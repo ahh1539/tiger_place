@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from flask import render_template, redirect, url_for, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -16,6 +17,8 @@ def login():
     if request.method == 'POST':
         user = User.query.filter(User.email == request.form['username']).all()
         if user and check_password_hash(user[0].password, request.form['password']):
+            session.permanent = True
+            app.permanent_session_lifetime = timedelta(minutes=30)
             session['user_id'] = user[0].user_id
             session['user_name'] = user[0].full_name
             print(session['user_name'], session['user_id'])
