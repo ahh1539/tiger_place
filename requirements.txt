@@ -1,0 +1,5 @@
+flask
+Flask-SQLAlchemy
+mysql-connector
+sshtunnel
+flask_bootstrap
