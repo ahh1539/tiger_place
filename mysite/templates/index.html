@@ -3,70 +3,72 @@
 
 {% block body %}
 {% block nav %}
-  <!-- <div id="HASH" class="blue-msg">
-    <span id="time-HASH" class="smalltext">9 months 2 weeks ago</span>
-    <span class="ios-circle">MESSAGE HERE</span>
-  </div> -->
-    <div class="colorx">
-      <div class="header-clearfix">
+<!-- <div id="HASH" class="blue-msg">
+  <span id="time-HASH" class="smalltext">9 months 2 weeks ago</span>
+  <span class="ios-circle">MESSAGE HERE</span>
+</div> -->
+<div class="colorx">
+    <div class="header-clearfix">
         <nav>
-          <!-- <p>TigerPlace</p> -->
-          <ul class="nav nav-pills pull-right" style="padding-top: 15px;">
-            <a href="/sell" class="Loginbtn Loginbtn--a mbm">Sell</a>
-            <a href="/logout" class="Loginbtn Loginbtn--a mbm">Logout</a>
-            <a href="/profile/{{user_id}}" class="Loginbtn Loginbtn--a mbm">Profile</a>
-          </ul>
+            <!-- <p>TigerPlace</p> -->
+            <ul class="nav nav-pills pull-right" style="padding-top: 15px;">
+                <a href="/sell" class="Loginbtn Loginbtn--a mbm">Sell</a>
+                <a href="/logout" class="Loginbtn Loginbtn--a mbm">Logout</a>
+                <a href="/profile/{{user_id}}" class="Loginbtn Loginbtn--a mbm">Profile</a>
+            </ul>
         </nav>
-      </div>
     </div>
+</div>
 {% endblock %}
 
 <div class="container" style="display: contents;">
-  <div class="jumbotron" style="background-color:#f76902; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; border-top-right-radius: 0px; border-top-left-radius: 0px; padding-top: 10px; height: 25vh;">
-    <div style="text-align: center;">
-      <img src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px;" />
+    <div class="jumbotron"
+         style="background-color:#f76902; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; border-top-right-radius: 0px; border-top-left-radius: 0px; padding-top: 10px; height: 25vh;">
+        <div style="text-align: center;">
+            <img src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px;"/>
+        </div>
+        <br>
+        <form class="search-container" onsubmit="" method="POST" action="/home">
+            <input type="text" id="search-bar" placeholder="Search" name="search_input">
+            <a href="#"><img class="search-icon" src="https://img.icons8.com/ios/452/search--v1.png"></a>
+        </form>
     </div>
     <br>
-    <form class="search-container" onsubmit="" method="POST" action="/home">
-      <input type="text" id="search-bar" placeholder="Search" name="search_input">
-      <a href="#"><img class="search-icon" src="https://img.icons8.com/ios/452/search--v1.png"></a>
-    </form>
-</div>
-<br>
 
-<div id="yeetitems">
-  <div class="container">
-    <div class="row">
-      {% if res %}
-        {% for item in res %}
-        <div class="col-sm-6 col-md-4">
-          <figure class="snip1527" style="box-shadow: 2px 2px 3px 3px #CCC; border-radius: 2px;">
-            <div class="image">
-              {% if item.img_path %}
-                <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" alt="pr-sample23" height="400px" width="400px"/>
-              {% else %}
-                <img src="{{url_for('static', filename = 'no_image.png')}}" alt="pr-sample23" />
-              {% endif %}
+    <div id="yeetitems">
+        <div class="container">
+            <div class="row">
+                {% if res %}
+                {% for item in res %}
+                <div class="col-sm-6 col-md-4">
+                    <figure class="snip1527" style="box-shadow: 2px 2px 3px 3px #CCC; border-radius: 2px;">
+                        <div class="image">
+                            {% if item.img_path %}
+                            <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" alt="pr-sample23"
+                                 height="400px" width="400px"/>
+                            {% else %}
+                            <img src="{{url_for('static', filename = 'no_image.png')}}" alt="pr-sample23"/>
+                            {% endif %}
+                        </div>
+                        <figcaption>
+                            <div class="date"><span class="month">${{ item.price }}</span></div>
+                            <h3>{{ item.name }}</h3>
+                            <p class="limit-2">
+                                {{ item.description }}
+                            </p>
+                        </figcaption>
+                        <a href="/expanded-card/{{item.item_id}}"></a>
+                    </figure>
+                </div>
+                {% endfor %}
+                {% endif %}
             </div>
-            <figcaption>
-              <div class="date"><span class="month">${{ item.price }}</span></div>
-              <h3>{{ item.name }}</h3>
-              <p class="limit-2">
-                {{ item.description }}
-              </p>
-            </figcaption>
-            <a href="/expanded-card/{{item.item_id}}"></a>
-          </figure>
         </div>
-        {% endfor %}
-      {% endif %}
     </div>
-  </div>
-</div>
-<div style="padding-left: 25px; padding-bottom: 25px;">
-    <p>© 2020 The Lads</p>
-</div>
-<script>
+    <div style="padding-left: 25px; padding-bottom: 25px;">
+        <p>© 2020 The Lads</p>
+    </div>
+    <script>
   function myFunction() {
   var x = document.getElementById("yeetitems");
   if (x.style.display === "none") {
@@ -75,7 +77,8 @@
     x.style.display = "none";
   }
 }
-</script>
-{% endblock %}
+
+    </script>
+    {% endblock %}
 
 
