@@ -3,23 +3,24 @@
 {% block title %}{{user.full_name}}'s Profile{% endblock %}
 
 {% block body %}
-    {% block nav %}
-        {{super()}}
-    {% endblock %}
-    <div style="padding: 80px;">
-        <h2>Your active postings</h2>
-        {% for item in items %}
-            <a href="/expanded-card/{{item.item_id}}" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-                <h4 class="mb-1">{{item.name}}</h4>
-                <small>{{item.created_at}}</small>
-            </div>
-            <p class="mb-1">{{item.description}}</p>
-            <small>${{item.price}}</small>
-            </a>
-        {% endfor %}
-    </div>
-    {% block footer %}
-        {{super()}}
-    {% endblock %}
+{% block nav %}
+{{super()}}
+{% endblock %}
+<div style="padding: 80px;">
+    <h2>Your active postings</h2>
+    {% for item in items %}
+    <a href="/expanded-card/{{item.item_id}}" target="_blank"
+       class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">{{item.name}}</h4>
+            <small>{{item.created_at}}</small>
+        </div>
+        <p class="mb-1">{{item.description}}</p>
+        <small>${{item.price}}</small>
+    </a>
+    {% endfor %}
+</div>
+{% block footer %}
+{{super()}}
+{% endblock %}
 {% endblock %}

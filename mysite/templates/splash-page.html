@@ -1,27 +1,28 @@
 {% extends "base.html" %}
 {% block styles %}
-    {{super()}}
-    <link rel="stylesheet" href="https://people.rit.edu/~dmb4086/TigerX/main.css">
-    <link rel="icon" href="{{url_for('static', filename = 'TigerPlace_Logo.png')}}">
+{{super()}}
+<link rel="stylesheet" href="https://people.rit.edu/~dmb4086/TigerX/main.css">
+<link rel="icon" href="{{url_for('static', filename = 'TigerPlace_Logo.png')}}">
 {% endblock %}
 {% block title %}Home{% endblock %}
 
 {% block body %}
-  <body>
-    <div class="wave-container" style="height:100vh;">
-        <div style="margin: 5em;">
-            <h1 style="padding-bottom: 7px;" class="typewriter">Welcome to TigerPlace.</h1>
-            <hr class="my-4">
-            <p class="lead" style="text-align: center;">You've got the goods, we've got the buyers!</p>
-            <p class="lead text-center">
-                <a href="/signup" class="Loginbtn Loginbtn--a mbm">Signup</a>
-                <a href="/login" class="Loginbtn Loginbtn--a mbm">Login</a>
-            </p>
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="height: 65vh;">
-            <path fill="#ffff" fill-opacity="1" d="M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-        </svg>
+<body>
+<div class="wave-container" style="height:100vh;">
+    <div style="margin: 5em;">
+        <h1 style="padding-bottom: 7px;" class="typewriter">Welcome to TigerPlace.</h1>
+        <hr class="my-4">
+        <p class="lead" style="text-align: center;">You've got the goods, we've got the buyers!</p>
+        <p class="lead text-center">
+            <a href="/signup" class="Loginbtn Loginbtn--a mbm">Signup</a>
+            <a href="/login" class="Loginbtn Loginbtn--a mbm">Login</a>
+        </p>
     </div>
-  </body>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="height: 65vh;">
+        <path fill="#ffff" fill-opacity="1"
+              d="M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+</div>
+</body>
 {% endblock %}
 
