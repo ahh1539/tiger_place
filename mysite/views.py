@@ -47,6 +47,12 @@ def signup_confirmation():
     return 'Cannot make an account for you at this time'
 
 
+
+@app.route('/faq')
+def faq():
+    return render_template("about.html")
+
+
 @app.route('/about')
 def about():
     if not session.get('user_id'):
