@@ -50,7 +50,7 @@ def signup_confirmation():
 
 @app.route('/faq')
 def faq():
-    return render_template("about.html")
+    return render_template("faq.html")
 
 
 @app.route('/about')
@@ -103,17 +103,14 @@ def sell_item():
         description = request.form['Description']
 
         if 'pic' not in request.files:
-            print('there is no file1 in form!')
+            return "Error: No picture found"
         else:
             file1 = request.files['pic']
-            print(app.config['UPLOAD_FOLDER'], 'heheheheh', file1.filename, request.files)
             path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
             file1.save(path)
-            fileName = file1.filename
-            print(path)
-
+            file_name = file1.filename
         item = Item(name=item_name, price=price, description=description, user_id=session.get('user_id'),
-                    img_path=file_name)
+                    img_path=str(file_name))
         db.session.add(item)
         db.session.commit()
         return render_template("created.html")

@@ -6,7 +6,16 @@
 {% block nav %}
 {{super()}}
 {% endblock %}
-<div style="padding: 80px;">
+<div style="padding: 80px;" class="container-fluid">
+    <div style="padding-bottom: 15px;">
+        <h2>Your Information</h2>
+        <div style="padding-left:10px;">
+            <h4>Name: {{user.full_name}}</h4>
+            <h4>Email: {{user.email}}</h4>
+            <h4>Phone Number: {{user.phone_number}}</h4>
+        </div>
+    </div>
+
     <h2>Your active postings</h2>
     {% for item in items %}
     <a href="/expanded-card/{{item.item_id}}" target="_blank"
