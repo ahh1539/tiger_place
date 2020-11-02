@@ -64,7 +64,7 @@
             {% for item in suggested_items %}
             <div class="column-xs-12 column-md-4">
                 <a href="/expanded-card/{{item.item_id}}">
-                    <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}"
+                    <img src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}"
                          style="height: 400px; width: 400px;">
                 </a>
                 <h4>{{item.name}}</h4>
