@@ -28,7 +28,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['UPLOAD_FOLDER'] = 'mysite/static/'
+app.config['UPLOAD_FOLDER'] = 'mysite/static/images/'
 app.secret_key = 'super secret key'
 db = SQLAlchemy(app)
 
