@@ -28,22 +28,22 @@
                 <div class="product-gallery">
                     <div class="product-image">'
                         {% if item.img_path %}
-                        <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" alt="pr-sample23"/>
+                        <img src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}" alt="pr-sample23"/>
                         {% else %}
                         <img src="{{url_for('static', filename = 'no_image.png')}}" alt="pr-sample23"/>
                         {% endif %}
                     </div>
-                    <ul class="image-list">
-                        <li class="image-item"><img
-                                src="https://s3.amazonaws.com/furniture.retailcatalog.us/products/1689620/large/1560greyorig.jpg">
-                        </li>
-                        <li class="image-item"><img
-                                src="https://www.livingspaces.com/globalassets/productassets/200000-299999/220000-229999/223000-223999/223500-223599/223508/223508_0.jpg?w=1911&h=1288&mode=pad">
-                        </li>
-                        <li class="image-item"><img
-                                src="https://cdn-images.article.com/products/SKU322/2890x1500/image22850.jpg?fit=max&w=1920&q=50">
-                        </li>
-                    </ul>
+<!--                    <ul class="image-list">-->
+<!--                        <li class="image-item"><img-->
+<!--                                src="https://s3.amazonaws.com/furniture.retailcatalog.us/products/1689620/large/1560greyorig.jpg">-->
+<!--                        </li>-->
+<!--                        <li class="image-item"><img-->
+<!--                                src="https://www.livingspaces.com/globalassets/productassets/200000-299999/220000-229999/223000-223999/223500-223599/223508/223508_0.jpg?w=1911&h=1288&mode=pad">-->
+<!--                        </li>-->
+<!--                        <li class="image-item"><img-->
+<!--                                src="https://cdn-images.article.com/products/SKU322/2890x1500/image22850.jpg?fit=max&w=1920&q=50">-->
+<!--                        </li>-->
+<!--                    </ul>-->
                 </div>
 
             </div>

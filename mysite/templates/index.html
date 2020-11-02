@@ -44,10 +44,10 @@
                     <figure class="snip1527" style="box-shadow: 2px 2px 3px 3px #CCC; border-radius: 2px;">
                         <div class="image">
                             {% if item.img_path %}
-                            <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" alt="pr-sample23"
+                            <img src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}" alt="pr-sample23"
                                  height="400px" width="400px"/>
                             {% else %}
-                            <img src="{{url_for('static', filename = 'no_image.png')}}" alt="pr-sample23"/>
+                            <img src="{{url_for('static', filename = 'images/no_image.png')}}" alt="pr-sample23"/>
                             {% endif %}
                         </div>
                         <figcaption>
