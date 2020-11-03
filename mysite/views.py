@@ -44,7 +44,7 @@ def signup_confirmation():
         db.session.add(user)
         db.session.commit()
         return render_template("sign-up-confirm.html")
-    return 'Cannot make an account for you at this time'
+    return signup(error='Cannot make an account for you at this time')
 
 
 
@@ -81,8 +81,8 @@ def logout():
 
 
 @app.route('/signup')
-def signup():
-    return render_template("signup.html")
+def signup(error=None):
+    return render_template("signup.html", error=error)
 
 
 @app.route('/sell', methods=['GET', 'POST'])
