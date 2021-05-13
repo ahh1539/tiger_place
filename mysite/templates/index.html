@@ -3,14 +3,9 @@
 
 {% block body %}
 {% block nav %}
-<!-- <div id="HASH" class="blue-msg">
-  <span id="time-HASH" class="smalltext">9 months 2 weeks ago</span>
-  <span class="ios-circle">MESSAGE HERE</span>
-</div> -->
 <div class="colorx">
     <div class="header-clearfix">
         <nav>
-            <!-- <p>TigerPlace</p> -->
             <ul class="nav nav-pills pull-right" style="padding-top: 15px;">
                 <a href="/sell" class="Loginbtn Loginbtn--a mbm">Sell</a>
                 <a href="/logout" class="Loginbtn Loginbtn--a mbm">Logout</a>
@@ -44,10 +39,10 @@
                     <figure class="snip1527" style="box-shadow: 2px 2px 3px 3px #CCC; border-radius: 2px;">
                         <div class="image">
                             {% if item.img_path %}
-                            <img src="{{url_for('static', filename = '{}'.format(item.img_path))}}" alt="pr-sample23"
+                            <img src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}" alt="pr-sample23"
                                  height="400px" width="400px"/>
                             {% else %}
-                            <img src="{{url_for('static', filename = 'no_image.png')}}" alt="pr-sample23"/>
+                            <img src="{{url_for('static', filename = 'images/no_image.png')}}" alt="pr-sample23"/>
                             {% endif %}
                         </div>
                         <figcaption>
@@ -66,7 +61,10 @@
         </div>
     </div>
     <div style="padding-left: 25px; padding-bottom: 25px;">
-        <p>© 2020 The Lads</p>
+        <span>
+            <p style="display: inline;">© 2020 The Lads</p>
+            <a href="/faq" style="padding-left:15px;">FAQ</a>
+        </span>
     </div>
     <script>
   function myFunction() {
