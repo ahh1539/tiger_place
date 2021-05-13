@@ -2,48 +2,48 @@
 
 {% block title %}Login{% endblock %}
 
-{% block body %}
-
-<body style="background-color: #f76902;">
-<div class="container" style="padding-top: 160px; width: 45vw; margin: auto;">
-    <div class="pb-2" style="text-align: center;">
-        <img src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px; padding-bottom: 15px;"/>
-    </div>
-
-    <div class="jumbotron" style="border-radius: 20px;">
-        <div style="text-align: center;">
-
-            <form action="" method="POST">
-                <div class="form-group" style="padding-top: 10px;"></div>
-                <div style="padding-top: 8px;">
-                    <input type="username" name="username" class="form-control" id="exampleInputEmail1"
-                           value="{{request.form.username}}" placeholder="Username" style="border:1px solid #f76902">
-                </div>
-                <div style="padding-top: 8px;">
-                    <input type="password" name="password" class="form-control" id="exampleInputPassword1"
-                           value="{{request.form.password}}" placeholder="Password" style="border:1px solid #f76902">
-                </div>
-                <div class="separate" style="padding-top: 8px;">
-                    <button type="submit" class="btn-2-dev btn-2-dev--a mbm">Login</button>
-                    <a href="/signup" class="Loginbtn Loginbtn--a mbm" style="margin-top: 2vw;">Sign Up</a>
-                </div>
-            </form>
-            {% if error %}
-            <p class="error"><strong>Error: {{ error }}</strong></p>
-            {% endif %}
-        </div>
-        <br>
-    </div>
-</div>
-</body>
-
-<script>
-  function loadMessage() {
-    console.log()
-  }
-
-</script>
-{% block footer %}
-{{super()}}
+{% block styles %}
+    {{super()}}
+    <style type="text/css">
+        body {
+            background-color: #f76902 !important;
+        }
+    </style>
 {% endblock %}
+
+{% block body %}
+    {% block nav %}{% endblock %}
+
+    <div class="container" style="padding-top: 160px; width: 45vw; margin: auto;">
+        <div class="pb-2" style="text-align: center;">
+            <img src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px; padding-bottom: 15px;"/>
+        </div>
+
+        <div class="jumbotron" style="border-radius: 20px;">
+            <div style="text-align: center;">
+
+                <form action="" method="POST">
+                    <div class="form-group" style="padding-top: 10px;"></div>
+                    <div style="padding-top: 8px;">
+                        <input type="username" name="username" class="form-control" id="exampleInputEmail1"
+                            value="{{request.form.username}}" placeholder="Username" style="border:1px solid #f76902">
+                    </div>
+                    <div style="padding-top: 8px;">
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                            value="{{request.form.password}}" placeholder="Password" style="border:1px solid #f76902">
+                    </div>
+                    <div class="separate" style="padding-top: 8px;">
+                        <button type="submit" class="btn-2-dev btn-2-dev--a mbm">Login</button>
+                        <a href="/signup" class="Loginbtn Loginbtn--a mbm" style="margin-top: 2vw;">Sign Up</a>
+                    </div>
+                </form>
+                {% if error %}
+                <p class="error"><strong>Error: {{ error }}</strong></p>
+                {% endif %}
+            </div>
+            <br>
+        </div>
+    </div>
+    {% block footer %}{{super()}}{% endblock %}
+
 {% endblock %}
