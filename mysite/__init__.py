@@ -6,7 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 Bootstrap(app)
 
-# for running locally
+# for running locally, need paid account
+# https://help.pythonanywhere.com/pages/AccessingMySQLFromOutsidePythonAnywhere/
+
 # tunnel = sshtunnel.SSHTunnelForwarder(
 #     ('ssh.pythonanywhere.com'), ssh_username='ahh1539', ssh_password='fvTSYgh$HzB7J23',
 #     remote_bind_address=('ahh1539.mysql.pythonanywhere-services.com', 3306)
