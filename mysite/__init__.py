@@ -1,4 +1,5 @@
 import sshtunnel
+from datetime import timedelta
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -32,6 +33,8 @@ app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['UPLOAD_FOLDER'] = 'mysite/static/images/'
 app.secret_key = 'super secret key'
+app.permanent_session_lifetime = timedelta(minutes=30)
+
 db = SQLAlchemy(app)
 
 from mysite import views
