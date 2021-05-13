@@ -29,7 +29,10 @@ def login():
 
 @app.route('/')
 def splash_page():
-    return render_template("splash-page.html")
+    if session.get('user_id'):
+        return redirect(url_for('index'))
+    else:
+        return render_template("splash-page.html")
 
 
 @app.route('/signup_confirmation', methods=['POST'])
