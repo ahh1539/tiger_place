@@ -1,3 +1,4 @@
+import  os
 
 class BaseConfig(object):
     """Base configuration."""
