@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="https://people.rit.edu/~dmb4086/TigerX/main.css">
+<link rel="stylesheet" href="{{url_for('static', filename = 'main.css')}}">
 <link rel="icon" href="{{url_for('static', filename = 'TigerPlace_Logo.png')}}">
 {% endblock %}
 {% block title %}Home{% endblock %}
