@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 
-from flask import render_template, redirect, url_for, request, session, flash
+from flask import render_template, redirect, url_for, flash, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from mysite import app
