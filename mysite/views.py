@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from mysite import app
@@ -22,9 +22,8 @@ def login():
             session['user_id'] = user[0].user_id
             session['user_name'] = user[0].full_name
             print(session['user_name'], session['user_id'])
-            flash('You were successfully logged in')
+            # flash('You were successfully logged in')
             return redirect(url_for('index'))
-        flash(u'Invalid credentials', 'error')
         error = "Invalid Credentials"
     return render_template("login.html", error=error)
 
@@ -108,8 +107,7 @@ def sell_item():
         description = request.form['Description']
 
         if 'pic' not in request.files:
-            flash(u'No picture found', 'error')
-            return redirect(url_for('sell_item'))
+            return 'No picture found'
         else:
             file1 = request.files['pic']
             path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
