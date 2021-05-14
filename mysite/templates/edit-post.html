@@ -3,27 +3,36 @@
 
 {% block body %}
 {% block nav %}
-    {{super()}}
+{{super()}}
 {% endblock %}
 
 <div class="container" style="padding-top: 100px;">
     <div style="text-align: center;">
         <form method="post" action="/submit-edit/{{item_to_edit.item_id}}" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" class="form-control" name="Item_Name"
-                    style="border:1px solid #f76902" value="{{item_to_edit.name}}" required>
+                <input type="text" class="form-control" name="Item_Name" style="border:1px solid #f76902"
+                    value="{{item_to_edit.name}}" required>
             </div>
             <div class="form-group">
                 <input type="number" class="form-control" name="Price" value={{item_to_edit.price}}
                     style="border:1px solid #f76902" required>
             </div>
             <div class="form-group">
-                <textarea rows="7" cols="30" class="form-control" name="Description"
-                    style="border:1px solid #f76902" required>{{item_to_edit.description}}</textarea>
+                <textarea rows="7" cols="30" class="form-control" name="Description" style="border:1px solid #f76902"
+                    required>{{item_to_edit.description}}</textarea>
             </div>
             <div class="form-group">
-                <select class="form-control" style="border:1px solid #f76902">
-                    <option>Default select</option>
+                <label class="float-left">Category</label>
+                <select class="form-control" style="border:1px solid #f76902" name="Description" required>
+                    <option>Books</option>
+                    <option>Tutoring</option>
+                    <option>Electronics</option>
+                    <option>Furniture</option>
+                    <option>Kitchenware</option>
+                    <option>Games</option>
+                    <option>Clothing</option>
+                    <option>Miscellaneous</option>
+                    <option>Outdoors</option>
                 </select>
             </div>
             <div class="form-group">
@@ -35,8 +44,8 @@
         </form>
     </div>
 </div>
-    {% block footer %}
-        {{super()}}
-    {% endblock %}
+{% block footer %}
+{{super()}}
+{% endblock %}
 
 {% endblock %}

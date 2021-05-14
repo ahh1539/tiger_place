@@ -105,7 +105,7 @@ def sell_item():
         item_name = request.form['Item_Name']
         price = request.form['Price']
         description = request.form['Description']
-
+        category = request.form['Category']
         if 'pic' not in request.files:
             return 'No picture found'
         else:
@@ -113,7 +113,7 @@ def sell_item():
             path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
             file1.save(path)
             file_name = file1.filename
-        item = Item(name=item_name, price=price, description=description, user_id=session.get('user_id'),
+        item = Item(name=item_name, price=price, description=description, category=category, user_id=session.get('user_id'),
                     img_path=str(file_name))
         db.session.add(item)
         db.session.commit()
