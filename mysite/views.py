@@ -1,5 +1,5 @@
 import os
-from datetime import timedelta
+import datetime
 
 from flask import render_template, redirect, url_for, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -69,7 +69,7 @@ def index():
     if not session.get('user_id'):
         return redirect(url_for('login'))
 
-    items = Item.query.all()
+    items = Item.query.filter(Item.deleted_at == None).limit(12).all()
     if request.method == 'POST':  # if sent a post request via the search bar
         search_input = str(request.form['search_input'])
         items = Item.query.filter(Item.name.like('%{}%'.format(search_input)))
@@ -126,17 +126,34 @@ def expanded_card(item_id):
     if not session.get('user_id'):
         return redirect(url_for('login'))
     if item_id:
-        item = Item.query.filter(Item.item_id == item_id).one()
-        user = User.query.filter(User.user_id == item.user_id).one()
-        suggested_items = Item.query.filter(Item.item_id != item_id).limit(3).all()
-        return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'),
-                               suggested_items=suggested_items, is_admin=session.get('ia', False))
+        try:
+            item = Item.query.filter(Item.item_id == item_id).one()
+            if item.deleted_at is not None and not session.get('ia'):
+                return redirect(url_for('index'))
+            else:
+                user = User.query.filter(User.user_id == item.user_id).one()
+                suggested_items = Item.query.filter(Item.item_id != item_id).limit(3).all()
+                return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'),
+                                    suggested_items=suggested_items, is_admin=session.get('ia', False))
+        except:
+            return redirect(url_for('index'))
 
 
 @app.route('/delete-item/<item_id>', methods=['GET', 'POST'])
 def delete_item(item_id):
     item = Item.query.filter(Item.item_id == item_id).one()
     if session.get('user_id') == item.user_id or session.get('ia') == True:
+        now = datetime.datetime.utcnow() 
+        item.deleted_at = now.strftime('%Y-%m-%d %H:%M:%S')
+        db.session.commit()
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('expanded-card'))
+
+@app.route('/admin/delete/<item_id>', methods=['GET', 'POST'])
+def admin_hard_delete(item_id):
+    item = Item.query.filter(Item.item_id == item_id).one()
+    if session.get('ia') == True:
         os.remove(app.config['UPLOAD_FOLDER'] + '{}'.format(item.img_path))
         db.session.delete(item)
         db.session.commit()
@@ -144,13 +161,15 @@ def delete_item(item_id):
     else:
         return redirect(url_for('expanded-card'))
 
-
 @app.route('/profile/<user_id>', methods=['GET', 'POST'])
 def profile_page(user_id):
     if int(session.get('user_id')) == int(user_id):
+        deleted_items = None
         user = User.query.filter(User.user_id == user_id).first()
         user_items = Item.query.filter(Item.user_id == user.user_id)
-        return render_template("profile_page.html", user=user, items=user_items)
+        if session.get('ia'):
+            deleted_items = Item.query.filter(Item.deleted_at != None).limit(5).all()
+        return render_template("profile_page.html", user=user, items=user_items, deleted_items=deleted_items)
     else:
         return redirect(url_for('index'))
 
