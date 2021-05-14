@@ -22,6 +22,7 @@ class Item(db.Model):
     name = db.Column(db.String(100))
     price = db.Column(db.String(100))
     description = db.Column(db.String(500))
+    category = db.Column(db.String(50))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     img_path = db.Column(db.String(500))
     created_at = db.Column(db.DateTime, default=db.func.now())

@@ -24,8 +24,9 @@
         <br>
         <form class="form-inline search-container" onsubmit="" method="POST" action="/home">
             <div class="input-group">
-              <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search_input" aria-describedby="basic-addon1">
-              <button class="btn btn-light my-2 my-sm-0 d-none d-md-block" type="submit">Search</button>
+                <input type="text" class="form-control mr-sm-2" placeholder="Search" name="search_input"
+                    aria-describedby="basic-addon1">
+                <button class="btn btn-light my-2 my-sm-0 d-none d-md-block" type="submit">Search</button>
             </div>
         </form>
     </div>
@@ -34,34 +35,37 @@
         <div class="row">
             {% if res %}
             {% for item in res %}
-                <div class="col-md-3 col-sm-6 mb-2">
-                    <a class="custom-card" href="/expanded-card/{{item.item_id}}">
-                        <div class="card">
-                            <div class="item-card-cost-pill">
-                                {% if item.img_path %}
-                                <img class="card-img-top" src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}"
-                                    alt="{{ item.name }}" height="250px" width="225px" />
-                                {% else %}
-                                <img class="card-img-top" src="{{url_for('static', filename = 'images/no_image.png')}}" alt="{{ item.name }}" />
-                                {% endif %}
-                                <span class="cost-pill-span badge badge-pill badge-primary">{{ "${:,.2f}".format(item.price | float) }}</span>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ item.name }}</h5>
-                                <p class="card-text limit-2">{{ item.description }}</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Posted: {{item.created_at}}</small>
-                            </div>
+            <div class="col-md-3 col-sm-6 mb-2">
+                <a class="custom-card" href="/expanded-card/{{item.item_id}}">
+                    <div class="card">
+                        <div class="item-card-cost-pill">
+                            {% if item.img_path %}
+                            <img class="card-img-top"
+                                src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}"
+                                alt="{{ item.name }}" height="250px" width="225px" />
+                            {% else %}
+                            <img class="card-img-top" src="{{url_for('static', filename = 'images/no_image.png')}}"
+                                alt="{{ item.name }}" />
+                            {% endif %}
+                            <span class="cost-pill-span badge badge-pill badge-primary">{{ "${:,.2f}".format(item.price
+                                | float) }}</span>
                         </div>
-                    </a>
-                </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <p class="card-text limit-2">{{ item.description }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Posted: {{item.created_at}}</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
             {% endfor %}
             {% endif %}
         </div>
     </div>
     {% block footer %}
-        {{super()}}
+    {{super()}}
     {% endblock %}
 
-{% endblock %}
+    {% endblock %}
