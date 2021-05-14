@@ -166,10 +166,43 @@ def profile_page(user_id):
     if int(session.get('user_id')) == int(user_id):
         deleted_items = None
         user = User.query.filter(User.user_id == user_id).first()
-        user_items = Item.query.filter(Item.user_id == user.user_id and Item.deleted_at == None)
+        user_items = Item.query.filter(Item.user_id == user.user_id, Item.deleted_at == None).all()
         if session.get('ia'):
             deleted_items = Item.query.filter(Item.deleted_at != None).limit(5).all()
         return render_template("profile_page.html", user=user, items=user_items, deleted_items=deleted_items)
     else:
         return redirect(url_for('index'))
+
+@app.route('/edit-post/<item_id>', methods=['GET', 'POST'])
+def verify_update(item_id):
+    if item_id:
+        try:
+            item_to_edit = Item.query.filter(Item.item_id == item_id, Item.user_id == session.get('user_id'), Item.deleted_at == None).one()
+            return render_template("edit-post.html", item_to_edit=item_to_edit, user_id=session.get('user_id'))
+        except:
+            return redirect(url_for('index'))
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/submit-edit/<item_id>', methods=['GET', 'POST'])
+def update_item(item_id):
+    if not session.get('user_id'):
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        user_id = request.form['User_Id']
+        updated_item_name = request.form['Item_Name']
+        updated_price = request.form['Price']
+        updated_description = request.form['Description']
+        if int(session.get('user_id')) == int(user_id):
+            item_to_update = Item.query.filter(Item.user_id == user_id, Item.item_id == item_id).one()
+            item_to_update.name = updated_item_name
+            item_to_update.price = updated_price
+            item_to_update.description = updated_description
+            db.session.commit()
+            print(item_to_update.name)
+            return redirect(url_for('index'))
+    return redirect(url_for('index'))
+
+
+
 
