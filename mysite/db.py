@@ -12,6 +12,7 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
     deleted_at = db.Column(db.DateTime)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    is_admin = db.Column(db.Boolean, nullable=False, default=False)
 
 
 class Item(db.Model):
