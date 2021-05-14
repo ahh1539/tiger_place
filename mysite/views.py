@@ -193,13 +193,14 @@ def update_item(item_id):
         updated_item_name = request.form['Item_Name']
         updated_price = request.form['Price']
         updated_description = request.form['Description']
+        updated_category = request.form['Category']
         if int(session.get('user_id')) == int(user_id):
             item_to_update = Item.query.filter(Item.user_id == user_id, Item.item_id == item_id).one()
             item_to_update.name = updated_item_name
             item_to_update.price = updated_price
             item_to_update.description = updated_description
+            item_to_update.category = updated_category
             db.session.commit()
-            print(item_to_update.name)
             return redirect(url_for('index'))
     return redirect(url_for('index'))
 
