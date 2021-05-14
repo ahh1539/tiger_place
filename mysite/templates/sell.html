@@ -2,34 +2,42 @@
 
 {% block title %}Sell{% endblock %}
 
+{% block styles %}
+    {{super()}}
+    <style type="text/css">
+        body {
+            background-color: #f76902 !important;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-<body style="background-color: #f76902;"></body>
-<div class="shadow-lg" style="padding-left: 15px; padding-top: 15px;">
-    <a href="/home" class="Loginbtn Loginbtn--a mbm">Home</a>
+
+<div class="pl-3 pt-3">
+    <a class="btn btn-light mx-1" href="/home" style="width: 80px;" role="button">Home</a>
 </div>
-<div class="shadow-lg container" style="padding-top: 100px; width: 45vw; margin: auto;">
+<div class="shadow-lg container" style="width: 45vw; margin: auto;">
     <div style="text-align: center; padding-bottom: 15px;">
-        <img src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px;"/>
+        <img src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px;" />
     </div>
     <div class="jumbotron" style="border-radius: 20px;">
         <div style="text-align: center;">
             <form method="post" action="/sell_item" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="text" class="form-control" name="Item_Name" placeholder="Item Name"
-                           style="border:1px solid #f76902" maxlength="50" required>
+                        style="border:1px solid #f76902" maxlength="50" required>
                 </div>
                 <div class="form-group">
                     <input type="number" class="form-control" name="Price" placeholder="Price"
-                           style="border:1px solid #f76902"
-                           required>
+                        style="border:1px solid #f76902" required>
                 </div>
                 <div class="form-group">
-              <textarea rows="7" cols="30" class="form-control" name="Description" placeholder="Description"
+                    <textarea rows="7" cols="30" class="form-control" name="Description" placeholder="Description"
                         style="border:1px solid #f76902" maxlength="500" required></textarea>
                 </div>
                 <div class="form-group">
                     <input type="file" placeholder="Select Picture" name="pic" accept="image/*" required>
-                    <input type="submit" value="Submit" class="btn-2-dev btn-2-dev--a mbm">
+                    <button type="submit" class="btn btn-secondary">Submit</button>
                 </div>
             </form>
         </div>
@@ -39,5 +47,4 @@
 {% block footer %}
 {{super()}}
 {% endblock %}
-</body>
 {% endblock %}

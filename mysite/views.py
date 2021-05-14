@@ -20,6 +20,7 @@ def login():
             session.permanent = True
             session['user_id'] = user[0].user_id
             session['user_name'] = user[0].full_name
+            session['ia'] = user[0].is_admin
             print(session['user_name'], session['user_id'])
             # flash('You were successfully logged in')
             return redirect(url_for('index'))
@@ -129,13 +130,13 @@ def expanded_card(item_id):
         user = User.query.filter(User.user_id == item.user_id).one()
         suggested_items = Item.query.filter(Item.item_id != item_id).limit(3).all()
         return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'),
-                               suggested_items=suggested_items)
+                               suggested_items=suggested_items, is_admin=session.get('ia', False))
 
 
 @app.route('/delete-item/<item_id>', methods=['GET', 'POST'])
 def delete_item(item_id):
     item = Item.query.filter(Item.item_id == item_id).one()
-    if session.get('user_id') == item.user_id:
+    if session.get('user_id') == item.user_id or session.get('ia') == True:
         os.remove(app.config['UPLOAD_FOLDER'] + '{}'.format(item.img_path))
         db.session.delete(item)
         db.session.commit()
