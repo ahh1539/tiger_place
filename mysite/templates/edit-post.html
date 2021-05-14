@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Edit{% endblock %}
+
+{% block body %}
+{% block nav %}
+    {{super()}}
+{% endblock %}
+
+<div class="container" style="padding-top: 100px;">
+    <div style="text-align: center;">
+        <form method="post" action="/submit-edit/{{item_to_edit.item_id}}" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="text" class="form-control" name="Item_Name"
+                    style="border:1px solid #f76902" value="{{item_to_edit.name}}" required>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" name="Price" value={{item_to_edit.price}}
+                    style="border:1px solid #f76902" required>
+            </div>
+            <div class="form-group">
+                <textarea rows="7" cols="30" class="form-control" name="Description"
+                    style="border:1px solid #f76902" required>{{item_to_edit.description}}</textarea>
+            </div>
+            <div class="form-group">
+                <select class="form-control" style="border:1px solid #f76902">
+                    <option>Default select</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="hidden" id="custId" name="User_Id" value="{{user_id}}">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+    {% block footer %}
+        {{super()}}
+    {% endblock %}
+
+{% endblock %}

@@ -16,24 +16,16 @@
         <div class="colorx">
             <div class="header-clearfix">
                 <nav>
-                    <ul class="nav nav-pills" style="padding-top: 15px;">
-                        <a href="/home" class="Loginbtn Loginbtn--a mbm" style="margin-left: 30px;">Home</a>
-                        <a href="/sell" class="Loginbtn Loginbtn--a mbm pull-right">Sell</a>
-                        <a href="/logout">
-                            <button class="Loginbtn Loginbtn--a mbm pull-right">Logout</button>
-                        </a>
+                    <ul class="float-right p-3">
+                        <a class="btn btn-light mx-1" href="/home" style="width: 80px;" role="button">Home</a>
+                        <a class="btn btn-light mx-1" href="/sell" style="width: 80px;" role="button">Sell</a>
+                        <a class="btn btn-light mx-1" href="/logout" style="width: 80px;" role="button">Logout</a>
                     </ul>
                 </nav>
             </div>
         </div>
         {% endblock %}
         {% block footer %}
-            <!-- <footer class="footer" style="padding-left: 25px; margin-top: 25px;">
-                <span>
-                    <p style="display: inline;">© 2020 The Lads</p>
-                    <a href="/faq" style="padding-left:15px;">FAQ</a>
-                </span>
-            </footer> -->
             <div style="padding-left: 25px; padding-bottom: 25px;">
                 <span>
                     <p style="display: inline;">© 2020 The Lads</p>
@@ -42,5 +34,6 @@
             </div>
         {% endblock %}
     {% endblock %}
+    <!-- <script src="{{url_for('static', filename='stylesheets/Bootstrap/js/bootstrap.min.js')}}"></script> -->
 </body>
 </html>
