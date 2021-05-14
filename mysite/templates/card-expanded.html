@@ -14,6 +14,9 @@
             {% if user.user_id == current_usr or is_admin %}
                 <a class="btn btn-secondary mx-1" href="/delete-item/{{item.item_id}}" role="button">Delete Posting</a>
             {% endif %}
+            {% if is_admin %}
+                <a class="btn btn-secondary mx-1" href="/admin/delete/{{item.item_id}}" role="button">Admin Delete Posting</a>
+            {% endif %}
         </div>
     </nav>
 {% endblock %}
