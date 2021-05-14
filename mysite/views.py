@@ -166,7 +166,7 @@ def profile_page(user_id):
     if int(session.get('user_id')) == int(user_id):
         deleted_items = None
         user = User.query.filter(User.user_id == user_id).first()
-        user_items = Item.query.filter(Item.user_id == user.user_id)
+        user_items = Item.query.filter(Item.user_id == user.user_id and Item.deleted_at == None)
         if session.get('ia'):
             deleted_items = Item.query.filter(Item.deleted_at != None).limit(5).all()
         return render_template("profile_page.html", user=user, items=user_items, deleted_items=deleted_items)
