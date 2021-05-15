@@ -3,7 +3,17 @@
 
 {% block body %}
 {% block nav %}
-{{super()}}
+    <div class="colorx">
+        <div class="header-clearfix">
+            <nav>
+                <ul class="float-right p-3">
+                    <a class="btn btn-light mx-1" href="/home" style="width: 80px;" role="button">Home</a>
+                    <a class="btn btn-light mx-1" href="/sell" style="width: 80px;" role="button">Sell</a>
+                    <a class="btn btn-light mx-1" href="/profile/{{user_id}}" style="width: 80px;" role="button">Profile</a>
+                </ul>
+            </nav>
+        </div>
+    </div>
 {% endblock %}
 
 <div class="container" style="padding-top: 100px; width: 65vw;">
