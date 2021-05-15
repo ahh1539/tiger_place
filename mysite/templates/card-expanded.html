@@ -47,15 +47,13 @@
                 <img class="img-fluid" style="height: 600px; width: 600px;" src="{{url_for('static', filename = 'images/no_image.png')}}" alt="pr-sample23"/>
             {% endif %}        </div>
         <div class="col-5">
-            <div class="row">
+            <div class="col">
                 <h1>{{item.name}}</h1>
-                <br>
                 <h2>${{item.price}}</h2>
             </div>
             <hr>
-            <div class="row">
+            <div class="col">
                 <p>{{item.description}}</p>
-                <br>
                 <strong style="color: #333"> 
                     Email: {{user.email}} 
                     <br> 
