@@ -2,7 +2,7 @@
 {% block title %}Home{% endblock %}
 {% block styles %}
     {{super()}}
-    <link rel="stylesheet" href="{{url_for('static', filename = 'stylesheets/expanded.css')}}">
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename = 'stylesheets/expanded.css')}}"> -->
 {% endblock %}
 
 
@@ -39,46 +39,47 @@
     </nav>
 {% endblock %}
 
-<main>
-    <div class="container">
-        <div class="grid second-nav">
-        </div>
-        <div class="grid product">
-            <div class="column-xs-12 column-md-7">
-                <div class="product-gallery">
-                    <div class="product-image">
-                        {% if item.img_path %}
-                        <img src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}" alt="pr-sample23"/>
-                        {% else %}
-                        <img src="{{url_for('static', filename = 'no_image.png')}}" alt="pr-sample23"/>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="column-xs-12 column-md-5">
+<div class="container mt-6">
+    <div class="row">
+        <div class="col-7">
+            {% if item.img_path %}
+                <img class="img-fluid" src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}" alt="pr-sample23"/>
+            {% else %}
+                <img class="img-fluid" src="{{url_for('static', filename = 'images/no_image.png')}}" alt="pr-sample23"/>
+            {% endif %}        </div>
+        <div class="col-5">
+            <div class="row">
                 <h1>{{item.name}}</h1>
+                <br>
                 <h2>${{item.price}}</h2>
-                <div class="description">
-                    <p>{{item.description}}</p>
-                    <br><strong style="color: #333"> Email: {{user.email}} <br> Phone: {{user.phone_number}}
-                </strong></p>
-                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <p>{{item.description}}</p>
+                <br>
+                <strong style="color: #333"> 
+                    Email: {{user.email}} 
+                    <br> 
+                    Phone: {{user.phone_number}}
+                </strong>
             </div>
         </div>
-        <div class="grid related-products">
-            <div class="column-xs-12">
-                <h3>You may also like</h3>
-            </div>
+    </div>
+    <hr>
+    <div class="row my-3">
+        <div class="row">
+            <h3>You may also like</h3>
+        </div>
+        <div class="row">
             {% for item in suggested_items %}
-            <div class="column-xs-12 column-md-4">
+            <div class="col">
                 <a href="/expanded-card/{{item.item_id}}">
-                    <img src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}"
-                         style="height: 400px; width: 400px;">
+                    <img class="img-fluid" src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}">
                 </a>
                 <h4>{{item.name}}</h4>
             </div>
             {% endfor %}
         </div>
     </div>
-</main>
+</div>
 {% endblock %}
