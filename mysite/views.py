@@ -13,7 +13,6 @@ def login():
     if session.get('user_id'):
         return redirect(url_for('index'))
     error = None
-    # print('tunnel: ', tunnel, ' db: ', db)
     if request.method == 'POST':
         user = User.query.filter(User.email == request.form['username']).all()
         if user and check_password_hash(user[0].password, request.form['password']):
@@ -49,7 +48,6 @@ def signup_confirmation():
         db.session.commit()
         return render_template("sign-up-confirm.html")
     return signup(error='Cannot make an account for you at this time')
-
 
 
 @app.route('/faq')
@@ -132,9 +130,10 @@ def expanded_card(item_id):
                 return redirect(url_for('index'))
             else:
                 user = User.query.filter(User.user_id == item.user_id).one()
-                suggested_items = Item.query.filter(Item.item_id != item_id).limit(3).all()
+                suggested_items = Item.query.filter(
+                    Item.item_id != item_id).limit(3).all()
                 return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'),
-                                    suggested_items=suggested_items, is_admin=session.get('ia', False))
+                                       suggested_items=suggested_items, is_admin=session.get('ia', False))
         except:
             return redirect(url_for('index'))
 
@@ -143,12 +142,13 @@ def expanded_card(item_id):
 def delete_item(item_id):
     item = Item.query.filter(Item.item_id == item_id).one()
     if session.get('user_id') == item.user_id or session.get('ia') == True:
-        now = datetime.datetime.utcnow() 
+        now = datetime.datetime.utcnow()
         item.deleted_at = now.strftime('%Y-%m-%d %H:%M:%S')
         db.session.commit()
         return redirect(url_for('index'))
     else:
         return redirect(url_for('expanded-card'))
+
 
 @app.route('/admin/delete/<item_id>', methods=['GET', 'POST'])
 def admin_hard_delete(item_id):
@@ -161,28 +161,34 @@ def admin_hard_delete(item_id):
     else:
         return redirect(url_for('expanded-card'))
 
+
 @app.route('/profile/<user_id>', methods=['GET', 'POST'])
 def profile_page(user_id):
     if int(session.get('user_id')) == int(user_id):
         deleted_items = None
         user = User.query.filter(User.user_id == user_id).first()
-        user_items = Item.query.filter(Item.user_id == user.user_id, Item.deleted_at == None).all()
+        user_items = Item.query.filter(
+            Item.user_id == user.user_id, Item.deleted_at == None).all()
         if session.get('ia'):
-            deleted_items = Item.query.filter(Item.deleted_at != None).limit(5).all()
+            deleted_items = Item.query.filter(
+                Item.deleted_at != None).limit(5).all()
         return render_template("profile_page.html", user=user, items=user_items, deleted_items=deleted_items)
     else:
         return redirect(url_for('index'))
+
 
 @app.route('/edit-post/<item_id>', methods=['GET', 'POST'])
 def verify_update(item_id):
     if item_id:
         try:
-            item_to_edit = Item.query.filter(Item.item_id == item_id, Item.user_id == session.get('user_id'), Item.deleted_at == None).one()
+            item_to_edit = Item.query.filter(Item.item_id == item_id, Item.user_id == session.get(
+                'user_id'), Item.deleted_at == None).one()
             return render_template("edit-post.html", item_to_edit=item_to_edit, user_id=session.get('user_id'))
         except:
             return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))
+
 
 @app.route('/submit-edit/<item_id>', methods=['GET', 'POST'])
 def update_item(item_id):
@@ -195,7 +201,8 @@ def update_item(item_id):
         updated_description = request.form['Description']
         updated_category = request.form['Category']
         if int(session.get('user_id')) == int(user_id):
-            item_to_update = Item.query.filter(Item.user_id == user_id, Item.item_id == item_id).one()
+            item_to_update = Item.query.filter(
+                Item.user_id == user_id, Item.item_id == item_id).one()
             item_to_update.name = updated_item_name
             item_to_update.price = updated_price
             item_to_update.description = updated_description
@@ -204,10 +211,7 @@ def update_item(item_id):
             return redirect(url_for('index'))
     return redirect(url_for('index'))
 
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html")
-
-
-
-
