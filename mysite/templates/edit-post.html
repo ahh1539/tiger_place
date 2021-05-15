@@ -6,7 +6,7 @@
 {{super()}}
 {% endblock %}
 
-<div class="container" style="padding-top: 100px;">
+<div class="container w-50" style="padding-top: 100px;">
     <div style="text-align: center;">
         <form method="post" action="/submit-edit/{{item_to_edit.item_id}}" enctype="multipart/form-data">
             <div class="form-group">
@@ -24,6 +24,7 @@
             <div class="form-group">
                 <label class="float-left">Category</label>
                 <select class="form-control" style="border:1px solid #f76902" name="Category" required>
+                    <option value="{{item_to_edit.category}}" selected>{{item_to_edit.category}}</option>
                     <option>Books</option>
                     <option>Tutoring</option>
                     <option>Electronics</option>

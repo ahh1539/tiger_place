@@ -204,6 +204,10 @@ def update_item(item_id):
             return redirect(url_for('index'))
     return redirect(url_for('index'))
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html")
+
 
 
 
