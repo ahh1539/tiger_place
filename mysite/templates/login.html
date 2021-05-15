@@ -14,9 +14,9 @@
 {% block body %}
     {% block nav %}{% endblock %}
 
-    <div class="container" style="padding-top: 160px; width: 45vw; margin: auto;">
+    <div class="container" style="padding-top: 160px; width: 65vw; margin: auto;">
         <div class="pb-2" style="text-align: center;">
-            <img src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px; padding-bottom: 15px;"/>
+            <img class="img-fluid" src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px; padding-bottom: 15px;"/>
         </div>
 
         <div class="jumbotron" style="border-radius: 20px;">
@@ -33,8 +33,8 @@
                             value="{{request.form.password}}" placeholder="Password" style="border:1px solid #f76902">
                     </div>
                     <div class="separate" style="padding-top: 8px;">
-                        <button type="submit" class="btn-2-dev btn-2-dev--a mbm">Login</button>
-                        <a href="/signup" class="Loginbtn Loginbtn--a mbm" style="margin-top: 2vw;">Sign Up</a>
+                        <button type="submit" class="btn btn-secondary mx-2">Login</button>
+                        <a class="btn btn-secondary mx-2" href="/signup" style="width: 80px;" role="button">Sign Up</a>
                     </div>
                 </form>
                 {% if error %}
