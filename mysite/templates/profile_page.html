@@ -18,7 +18,7 @@
 
     {% if deleted_items %}
     <div class="my-4">
-        <h2>Admin View Only: Soft Deleted Items</h2>
+        <h2>Admin: Soft Deleted Items</h2>
         {% for item in deleted_items %}
         <a href="/expanded-card/{{item.item_id}}"
         class="list-group-item list-group-item-warning list-group-item-action flex-column align-items-start">
@@ -35,7 +35,7 @@
 
     <h2>Your active postings</h2>
     {% for item in items %}
-    <a href="/expanded-card/{{item.item_id}}" target="_blank"
+    <a href="/expanded-card/{{item.item_id}}"
        class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
             <h4 class="mb-1">{{item.name}}</h4>
