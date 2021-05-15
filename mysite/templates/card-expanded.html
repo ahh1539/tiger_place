@@ -41,7 +41,11 @@
 <div class="container" style="padding-top: 50px;">
     <div class="row">
         <div class="d-md-none" id="mobile view">
-            <img class="img-fluid" style="height: 600px; width: 600px;" src="{{url_for('static', filename = 'images/no_image.png')}}" alt="pr-sample23"/>
+            {% if item.img_path %}
+                <img class="img-fluid" style="height: 600px; width: 600px;" src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}" alt="pr-sample23"/>
+            {% else %}
+                <img class="img-fluid" style="height: 600px; width: 600px;" src="{{url_for('static', filename = 'images/no_image.png')}}" alt="pr-sample23"/>
+            {% endif %}
             <h1>{{item.name}}</h1>
             <h2>${{item.price}}</h2>
             <p>{{item.description}}</p>
@@ -51,9 +55,8 @@
                 Phone: {{user.phone_number}}
             </strong>
         </div>
-
         <div class="col-7 d-none d-md-block">
-            {% if item.img_pathh %}
+            {% if item.img_path %}
                 <img class="img-fluid" style="height: 600px; width: 600px;" src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}" alt="pr-sample23"/>
             {% else %}
                 <img class="img-fluid" style="height: 600px; width: 600px;" src="{{url_for('static', filename = 'images/no_image.png')}}" alt="pr-sample23"/>
