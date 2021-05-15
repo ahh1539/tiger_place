@@ -16,9 +16,9 @@
 <div class="pl-3 pt-3">
     <a class="btn btn-light mx-1" href="/home" style="width: 80px;" role="button">Home</a>
 </div>
-<div class="shadow-lg container w-50" style="margin: auto;">
+<div class="shadow-lg container" style="margin: auto; width: 65vw;">
     <div style="text-align: center; padding-bottom: 15px;">
-        <img src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px;" />
+        <img class="img-fluid" src="{{url_for('static', filename = 'white_logo.png')}}" style="width: 200px;" />
     </div>
     <div class="jumbotron" style="border-radius: 20px;">
         <div style="text-align: center;">
@@ -51,6 +51,8 @@
                 </div>
                 <div class="form-group">
                     <input type="file" placeholder="Select Picture" name="pic" accept="image/*" required>
+                </div>
+                <div class="form-group">
                     <button type="submit" class="btn btn-secondary">Submit</button>
                 </div>
             </form>
