@@ -46,14 +46,16 @@
             {% else %}
                 <img class="img-fluid" style="height: 600px; width: 600px;" src="{{url_for('static', filename = 'images/no_image.png')}}" alt="pr-sample23"/>
             {% endif %}
-            <h1>{{item.name}}</h1>
-            <h2>${{item.price}}</h2>
-            <p>{{item.description}}</p>
-            <strong style="color: #333"> 
-                Email: {{user.email}} 
-                <br> 
-                Phone: {{user.phone_number}}
-            </strong>
+            <div class="px-2">
+                <h1>{{item.name}}</h1>
+                <h2>${{item.price}}</h2>
+                <p>{{item.description}}</p>
+                <strong style="color: #333"> 
+                    Email: {{user.email}} 
+                    <br> 
+                    Phone: {{user.phone_number}}
+                </strong>
+            </div>
         </div>
         <div class="col-7 d-none d-md-block">
             {% if item.img_path %}
@@ -80,12 +82,12 @@
     </div>
     <hr>
     <div class="row my-3">
-        <div class="row">
+        <div class="row px-2">
             <h3>You may also like</h3>
         </div>
         <div class="row">
             {% for item in suggested_items %}
-            <div class="col">
+            <div class="col-sm">
                 <a href="/expanded-card/{{item.item_id}}">
                     <img class="img-fluid" style="height: 400px; width: 400px;" src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}">
                 </a>
