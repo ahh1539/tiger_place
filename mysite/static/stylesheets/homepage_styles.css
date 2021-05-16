@@ -19,6 +19,16 @@ footer {
     -webkit-box-orient: vertical;
  }
 
+ .limit-4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 21px;
+  max-height: 85px;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
  .typewriter {
   border-right: solid 3px black;
   white-space: nowrap;

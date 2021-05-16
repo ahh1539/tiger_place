@@ -26,6 +26,25 @@
   left: 10px;
 }
 
+.mobile-vs-desktop-card {
+  width: 50vw !important;
+}
+
+.profile-page-card {
+  padding-top: 80px;
+  width: 80vw !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .mobile-vs-desktop-card {
+    width: 80vw !important;
+  }
+
+  .expanded-card-padding-ymal {
+    padding: 10px;
+  }
+}
+
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 
