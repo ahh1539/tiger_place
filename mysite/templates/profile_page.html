@@ -6,7 +6,7 @@
 {% block nav %}
 {{super()}}
 {% endblock %}
-<div style="padding: 80px;" class="container-fluid">
+<div class="container-fluid profile-page-card pb-5">
     <div style="padding-bottom: 15px;">
         <h2>Your Information</h2>
         <div style="padding-left:10px;">
@@ -26,7 +26,7 @@
                 <h4 class="mb-1">{{item.name}}</h4>
                 <small>Deleted: {{item.deleted_at}}</small>
             </div>
-            <p class="mb-1">{{item.description}}</p>
+            <p class="mb-1 limit-4">{{item.description}}</p>
             <small>${{item.price}}</small>
         </a>
         {% endfor %}
@@ -41,7 +41,7 @@
             <h4 class="mb-1">{{item.name}}</h4>
             <small>Created: {{item.created_at}}</small>
         </div>
-        <p class="mb-1">{{item.description}}</p>
+        <p class="mb-1 limit-4">{{item.description}}</p>
         <small>${{item.price}}</small>
     </a>
     {% endfor %}
