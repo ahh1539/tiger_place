@@ -18,9 +18,9 @@ ssh_connection_string = lines[6].strip('\n')
 test_env = bool(lines[7].strip('\n'))
 secret_key = lines[8].strip('\n')
 img_upload_path = lines[9].strip('\n')
-f.close(username, ssh_password, db_password, db_name, hostname, connection_port, ssh_connection_string, test_env, secret_key, img_upload_path)
+f.close()
 
-print()
+print(username, ssh_password, db_password, db_name, hostname, connection_port, ssh_connection_string, test_env, secret_key, img_upload_path)
 
 # for running locally
 # tunnel = sshtunnel.SSHTunnelForwarder(
@@ -34,7 +34,7 @@ print()
 
 # uncomment before pushing to master
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-    username="ahh1539",
+    username=username,
     password="g3gd@XEbiU7H7Ri",
     hostname="ahh1539.mysql.pythonanywhere-services.com",
     databasename="ahh1539$pyanywhere_tigerplace",
