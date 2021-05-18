@@ -4,6 +4,7 @@
 ![License](https://img.shields.io/github/license/ahh1539/tiger_place)
 ![Last Commit](https://img.shields.io/github/last-commit/ahh1539/tiger_place)
 ![Repo Size](https://img.shields.io/github/repo-size/ahh1539/tiger_place)
+![Latest Release](https://img.shields.io/github/v/release/ahh1539/tiger_place?include_prereleases)
 
 
 # Visit our live app:tiger::
