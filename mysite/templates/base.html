@@ -2,6 +2,9 @@
 <html>
 
 <head>
+    <title>
+        {% block title %}{% endblock %}
+    </title>
     {% block styles %}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{url_for('static', filename = 'stylesheets/main.css')}}">
