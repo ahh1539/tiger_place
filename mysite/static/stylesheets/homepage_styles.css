@@ -4,11 +4,6 @@ footer {
     width: 100%;
 }
 
-#HASH {
-    display: flex;
-    justify-content: space-between;
-  }
-
 .limit-2 {
     overflow: hidden;
     text-overflow: ellipsis;
