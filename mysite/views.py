@@ -15,12 +15,12 @@ def login():
         return redirect(url_for('index'))
     error = None
     if request.method == 'POST':
-        user = User.query.filter(User.email == request.form['username']).all()
-        if user and check_password_hash(user[0].password, request.form['password']):
+        user = User.get_by_email(request.form['username'])
+        if user and check_password_hash(user.password, request.form['password']):
             session.permanent = True
-            session['user_id'] = user[0].user_id
-            session['user_name'] = user[0].full_name
-            session['ia'] = user[0].is_admin
+            session['user_id'] = user.user_id
+            session['user_name'] = user.full_name
+            session['ia'] = user.is_admin
             print(session['user_name'], session['user_id'])
             # flash('You were successfully logged in')
             return redirect(url_for('index'))
@@ -126,11 +126,11 @@ def expanded_card(item_id):
         return redirect(url_for('login'))
     if item_id:
         try:
-            item = Item.query.filter(Item.item_id == item_id).one()
+            item = Item.get_by_id(item_id)
             if item.deleted_at is not None and not session.get('ia'):
                 return redirect(url_for('index'))
             else:
-                user = User.query.filter(User.user_id == item.user_id).one()
+                user = User.get_by_id(item.user_id)
                 suggested_items = Item.query.filter(
                     Item.item_id != item_id).limit(3).all()
                 return render_template("card-expanded.html", item=item, user=user, current_usr=session.get('user_id'),
@@ -141,7 +141,7 @@ def expanded_card(item_id):
 
 @app.route('/delete-item/<item_id>', methods=['GET', 'POST'])
 def delete_item(item_id):
-    item = Item.query.filter(Item.item_id == item_id).one()
+    item = Item.get_by_id(item_id)
     if session.get('user_id') == item.user_id or session.get('ia') == True:
         now = datetime.datetime.utcnow()
         item.deleted_at = now.strftime('%Y-%m-%d %H:%M:%S')
@@ -153,7 +153,7 @@ def delete_item(item_id):
 
 @app.route('/admin/delete/<item_id>', methods=['GET', 'POST'])
 def admin_hard_delete(item_id):
-    item = Item.query.filter(Item.item_id == item_id).one()
+    item = Item.get_by_id(item_id)
     if session.get('ia') == True:
         os.remove(app.config['UPLOAD_FOLDER'] + '{}'.format(item.img_path))
         db.session.delete(item)
@@ -167,7 +167,7 @@ def admin_hard_delete(item_id):
 def profile_page(user_id):
     if int(session.get('user_id')) == int(user_id):
         deleted_items = None
-        user = User.query.filter(User.user_id == user_id).first()
+        user = User.get_by_id(user_id)
         user_items = Item.query.filter(
             Item.user_id == user.user_id, Item.deleted_at == None).all()
         if session.get('ia'):

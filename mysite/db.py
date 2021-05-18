@@ -14,6 +14,14 @@ class User(db.Model):
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
 
+    @classmethod
+    def get_by_email(cls, email):
+        return cls.query.filter_by(email=email).first()
+
+    @classmethod 
+    def get_by_id(cls, id):                 
+        return cls.query.filter_by(user_id=id).first()
+
 
 class Item(db.Model):
     __tablename__ = 'items'
@@ -27,3 +35,11 @@ class Item(db.Model):
     img_path = db.Column(db.String(500))
     created_at = db.Column(db.DateTime, default=db.func.now())
     deleted_at = db.Column(db.DateTime)
+
+    @classmethod
+    def get_by_name(cls, item_name):
+        return cls.query.filter_by(name=item_name).first()
+
+    @classmethod 
+    def get_by_id(cls, id):                 
+        return cls.query.filter_by(item_id=id).first()
