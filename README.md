@@ -1,3 +1,5 @@
+[![Alex's github stats](https://github-readme-stats.vercel.app/api?username=ahh1539&count_private=true&theme=radical)](https://github.com/anuraghazra/github-readme-stats)
+
 # Visit our live app:tiger::
 <https://ahh1539.pythonanywhere.com/>
 # Getting Started:
