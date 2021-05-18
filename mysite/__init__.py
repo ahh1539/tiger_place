@@ -53,6 +53,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['UPLOAD_FOLDER'] = img_upload_path
 app.secret_key = secret_key
 app.permanent_session_lifetime = timedelta(minutes=30)
+app.config['MAX_CONTENT_LENGTH'] = 12 * 1024 * 1024
+
 
 db = SQLAlchemy(app)
 

@@ -3,6 +3,7 @@ import datetime
 
 from flask import render_template, redirect, url_for, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 
 from mysite import app
 from mysite.db import User, Item, db
@@ -108,14 +109,14 @@ def sell_item():
             return 'No picture found'
         else:
             file1 = request.files['pic']
-            path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
+            filename = secure_filename(file1.filename)
+            path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file1.save(path)
-            file_name = file1.filename
-        item = Item(name=item_name, price=price, description=description, category=category, user_id=session.get('user_id'),
-                    img_path=str(file_name))
-        db.session.add(item)
-        db.session.commit()
-        return render_template("created.html")
+            item = Item(name=item_name, price=price, description=description, category=category, user_id=session.get('user_id'),
+                        img_path=str(filename))
+            db.session.add(item)
+            db.session.commit()
+            return render_template("created.html")
 
 
 @app.route('/expanded-card/<item_id>', methods=['GET', 'POST'])
