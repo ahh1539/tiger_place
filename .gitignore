@@ -3,3 +3,17 @@ __pycache__
 *.idea/
 .vscode
 sensitive.txt
+mysite/static/images/
+.virtualenvs/
+.bash_history
+.bashrc
+.cache/
+.gitconfig
+.local/
+.my.cnf
+.profile
+.pythonstartup.py
+.viminfo
+.vimrc
+README.txt
+mysite/client_secret.json
