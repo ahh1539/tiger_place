@@ -21,7 +21,6 @@
 
         <div class="jumbotron" style="border-radius: 20px;">
             <div style="text-align: center;">
-
                 <form action="" method="POST">
                     <div class="form-group" style="padding-top: 10px;"></div>
                     <div style="padding-top: 8px;">
@@ -37,6 +36,10 @@
                         <a class="btn btn-secondary mx-2" href="/signup" style="width: 80px;" role="button">Sign Up</a>
                     </div>
                 </form>
+                <a class="btn btn-outline-dark mt-3" href="/google-login" role="button" style="text-transform:none">
+                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                    Login with Google
+                </a>
                 {% if error %}
                 <p class="error"><strong>Error: {{ error }}</strong></p>
                 {% endif %}

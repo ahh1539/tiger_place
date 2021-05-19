@@ -1,11 +1,16 @@
 import os
 import datetime
 
-from flask import render_template, redirect, url_for, request, session
+from flask import abort, render_template, redirect, url_for, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
-from mysite import app
+import requests
+from google.oauth2 import id_token
+from pip._vendor import cachecontrol
+import google.auth.transport.requests
+
+from mysite import app, flow, GOOGLE_CLIENT_ID
 from mysite.db import User, Item, db
 
 
@@ -19,9 +24,9 @@ def login():
         if user and check_password_hash(user.password, request.form['password']):
             session.permanent = True
             session['user_id'] = user.user_id
-            session['user_name'] = user.full_name
+            session['name'] = user.full_name
             session['ia'] = user.is_admin
-            print(session['user_name'], session['user_id'])
+            print(session['name'], session['user_id'])
             # flash('You were successfully logged in')
             return redirect(url_for('index'))
         error = "Invalid Credentials"
@@ -63,7 +68,7 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/home', methods=['POST', 'GET'])
+@app.route('/home')
 def index():
     if not session.get('user_id'):
         return redirect(url_for('login'))
@@ -72,9 +77,9 @@ def index():
     if request.method == 'POST':  # if sent a post request via the search bar
         search_input = str(request.form['search_input'])
         items = Item.query.filter(Item.name.like('%{}%'.format(search_input)))
-        return render_template("index.html", res=items, user_id=session.get('user_id'), user_name=session['user_name'])
+        return render_template("index.html", res=items, user_id=session.get('user_id'), user_name=session.get('name'))
 
-    return render_template("index.html", res=items, user_id=session.get('user_id'), user_name=session['user_name'])
+    return render_template("index.html", res=items, user_id=session.get('user_id'), user_name=session.get('name'))
 
 
 @app.route('/logout')
@@ -167,7 +172,7 @@ def admin_hard_delete(item_id):
 def profile_page(user_id):
     if int(session.get('user_id')) == int(user_id):
         deleted_items = None
-        user = User.get_by_id(user_id)
+        user = User.get_by_id(int(user_id))
         user_items = Item.query.filter(
             Item.user_id == user.user_id, Item.deleted_at == None).all()
         if session.get('ia'):
@@ -216,3 +221,46 @@ def update_item(item_id):
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html")
+
+
+@app.route("/google-login")
+def google_login():
+    authorization_url, state = flow.authorization_url()
+    session["state"] = state
+    return redirect(authorization_url)
+
+
+@app.route("/login/callback")
+def callback():
+    flow.fetch_token(authorization_response=request.url)
+
+    if not session["state"] == request.args["state"]:
+        abort(500)  # State does not match!
+
+    credentials = flow.credentials
+    request_session = requests.session()
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(
+        session=cached_session)
+
+    id_info = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=GOOGLE_CLIENT_ID
+    )
+
+    session["google_id"] = id_info.get("sub")
+    session["name"] = id_info.get("name")
+    session["email"] = id_info.get("email")
+    user = User.get_by_email(session["email"])
+    if not user:
+        user = User(email=session.get("email"), password=generate_password_hash("google"), full_name=session.get("name"),
+                    phone_number=None)
+        db.session.add(user)
+        db.session.commit()
+        last_user = User.query.order_by(User.user_id.desc()).first()
+        session["user_id"] = last_user.user_id
+    else:
+        session['ia'] = user.is_admin
+        session["user_id"] = user.user_id
+    return redirect(url_for('index'))
