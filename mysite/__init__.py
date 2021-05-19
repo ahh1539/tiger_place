@@ -1,8 +1,12 @@
 import sshtunnel
+import pathlib
+import os
+
 from datetime import timedelta
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
+from google_auth_oauthlib.flow import Flow
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -19,8 +23,12 @@ ssh_connection_string = lines[6].strip('\n')
 test_env = lines[7].strip('\n')
 secret_key = lines[8].strip('\n')
 img_upload_path = lines[9].strip('\n')
+GOOGLE_CLIENT_ID = lines[10].strip('\n')
 
 f.close()
+
+client_secrets_file = os.path.join(
+    pathlib.Path(__file__).parent, "client_secret.json")
 
 # for running locally, need paid account
 # https://help.pythonanywhere.com/pages/AccessingMySQLFromOutsidePythonAnywhere/
@@ -38,6 +46,13 @@ if test_env == 'True':
         db_name=db_name,
         local_bind_port=tunnel.local_bind_port
     )
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+    flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="http://127.0.0.1:5000/login/callback"
+)
 else:
     SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
         username=username,
@@ -46,6 +61,12 @@ else:
         databasename=db_name,
     )
     app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
+    flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="https://ahh1539.pythonanywhere.com/login/callback"
+)
 
 
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299

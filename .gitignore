@@ -3,6 +3,7 @@ __pycache__
 *.idea/
 .vscode
 sensitive.txt
+client_secret.json
 mysite/static/images/
 .virtualenvs/
 .bash_history
