@@ -223,6 +223,11 @@ def page_not_found(error):
     return render_template("404.html")
 
 
+@app.errorhandler(500)
+def page_not_found(error):
+    return render_template("500.html")
+
+
 @app.route("/google-login")
 def google_login():
     authorization_url, state = flow.authorization_url()

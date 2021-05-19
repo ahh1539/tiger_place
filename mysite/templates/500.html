@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}500{% endblock %}
+
+{% block body %}
+{% block nav %}
+{% endblock %}
+<div class="page-wrap d-flex flex-row align-items-center mt-10">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <span class="display-1 d-block">500</span>
+                <div class="mb-4 lead">Server error. We're working on it!</div>
+                <a href="/home" class="btn btn-link">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% block footer %}
+{{super()}}
+{% endblock %}
+
+{% endblock %}
