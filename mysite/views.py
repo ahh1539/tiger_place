@@ -76,7 +76,7 @@ def index():
     items = Item.query.filter(Item.deleted_at == None).limit(12).all()
     if request.method == 'POST':  # if sent a post request via the search bar
         search_input = str(request.form['search_input'])
-        items = Item.query.filter(Item.name.like('%{}%'.format(search_input)))
+        items = Item.query.filter(Item.name.like('%{}%'.format(search_input)), Item.deleted_at == None)
         return render_template("index.html", res=items, user_id=session.get('user_id'), user_name=session.get('name'))
 
     return render_template("index.html", res=items, user_id=session.get('user_id'), user_name=session.get('name'))
@@ -105,7 +105,6 @@ def sell_item():
     if not session.get('user_id'):
         return redirect(url_for('login'))
     if request.method == 'POST':
-        file_name = None
         item_name = request.form['Item_Name']
         price = request.form['Price']
         description = request.form['Description']
