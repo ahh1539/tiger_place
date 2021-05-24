@@ -68,7 +68,7 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def index():
     if not session.get('user_id'):
         return redirect(url_for('login'))
