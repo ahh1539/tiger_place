@@ -73,11 +73,13 @@ def index():
     if not session.get('user_id'):
         return redirect(url_for('login'))
 
-    items = Item.query.filter(Item.deleted_at == None).limit(12).all()
-    if request.method == 'POST':  # if sent a post request via the search bar
+    page = request.args.get('page', 1, type=int)
+    items = Item.query.filter(Item.deleted_at == None).paginate(page=page, per_page=12)
+
+    if request.method == 'POST' and request.form.get('search_input') is not '':  # if sent a post request via the search bar
         search_input = str(request.form['search_input'])
-        items = Item.query.filter(Item.name.like('%{}%'.format(search_input)), Item.deleted_at == None)
-        return render_template("index.html", res=items, user_id=session.get('user_id'), user_name=session.get('name'))
+        items = Item.query.filter(Item.name.like('%{}%'.format(search_input)), Item.deleted_at == None).limit(12).all()
+        return render_template("index.html", res=items, user_id=session.get('user_id'), user_name=session.get('name'), from_search=True)
 
     return render_template("index.html", res=items, user_id=session.get('user_id'), user_name=session.get('name'))
 
