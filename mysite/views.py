@@ -1,7 +1,7 @@
 import os
 import datetime
 
-from flask import abort, render_template, redirect, url_for, request, session
+from flask import abort, render_template, redirect, url_for, request, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
@@ -27,7 +27,6 @@ def login():
             session['name'] = user.full_name
             session['ia'] = user.is_admin
             print(session['name'], session['user_id'])
-            # flash('You were successfully logged in')
             return redirect(url_for('index'))
         error = "Invalid Credentials"
     return render_template("login.html", error=error)
@@ -52,7 +51,8 @@ def signup_confirmation():
                     phone_number=phone_number)
         db.session.add(user)
         db.session.commit()
-        return render_template("sign-up-confirm.html")
+        flash('Successfully signed up!', 'success')
+        return render_template("login.html")
     return signup(error='Cannot make an account for you at this time')
 
 
@@ -114,15 +114,21 @@ def sell_item():
         if 'pic' not in request.files:
             return 'No picture found'
         else:
-            file1 = request.files['pic']
-            filename = secure_filename(file1.filename)
-            path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file1.save(path)
-            item = Item(name=item_name, price=price, description=description, category=category, user_id=session.get('user_id'),
-                        img_path=str(filename))
-            db.session.add(item)
-            db.session.commit()
-            return render_template("created.html")
+            try:
+                file1 = request.files['pic']
+                filename = secure_filename(file1.filename)
+                path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file1.save(path)
+                item = Item(name=item_name, price=price, description=description, category=category, user_id=session.get('user_id'),
+                            img_path=str(filename))
+                db.session.add(item)
+                db.session.commit()
+                flash('Posting Created', 'success')
+                return redirect(url_for('index'))
+            except:
+                flash('Posting Failed', 'danger')
+                return redirect(url_for('index'))
+
 
 
 @app.route('/expanded-card/<item_id>', methods=['GET', 'POST'])
@@ -152,6 +158,7 @@ def delete_item(item_id):
         now = datetime.datetime.utcnow()
         item.deleted_at = now.strftime('%Y-%m-%d %H:%M:%S')
         db.session.commit()
+        flash('Posting Deleted', 'success')
         return redirect(url_for('index'))
     else:
         return redirect(url_for('expanded-card'))
@@ -211,14 +218,19 @@ def update_item(item_id):
         updated_description = request.form['Description']
         updated_category = request.form['Category']
         if int(session.get('user_id')) == int(user_id):
-            item_to_update = Item.query.filter(
-                Item.user_id == user_id, Item.item_id == item_id).one()
-            item_to_update.name = updated_item_name
-            item_to_update.price = updated_price
-            item_to_update.description = updated_description
-            item_to_update.category = updated_category
-            db.session.commit()
-            return redirect(url_for('index'))
+            try:
+                item_to_update = Item.query.filter(
+                    Item.user_id == user_id, Item.item_id == item_id).one()
+                item_to_update.name = updated_item_name
+                item_to_update.price = updated_price
+                item_to_update.description = updated_description
+                item_to_update.category = updated_category
+                db.session.commit()
+                flash('Updated sucessfully', 'success')
+                return redirect(url_for('index'))
+            except:
+                flash('Update failed', 'danger')
+
     return redirect(url_for('index'))
 
 
@@ -269,6 +281,7 @@ def callback():
         db.session.commit()
         last_user = User.query.order_by(User.user_id.desc()).first()
         session["user_id"] = last_user.user_id
+        flash('Successfully signed up!', 'success')
     else:
         session['ia'] = user.is_admin
         session["user_id"] = user.user_id
