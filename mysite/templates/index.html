@@ -70,6 +70,7 @@
                                 <div class="item-card-cost-pill">
                                     {% if item.img_path %}
                                     <img class="card-img-top"
+                                        loading="lazy"
                                         src="{{url_for('static', filename = 'images/{}'.format(item.img_path))}}"
                                         alt="{{ item.name }}" height="250px" width="225px" />
                                     {% else %}
