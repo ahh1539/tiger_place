@@ -161,7 +161,10 @@ def delete_item(item_id):
 def admin_hard_delete(item_id):
     item = Item.get_by_id(item_id)
     if session.get('ia') == True:
-        os.remove(app.config['UPLOAD_FOLDER'] + '{}'.format(item.img_path))
+        try:
+            os.remove(app.config['UPLOAD_FOLDER'] + '{}'.format(item.img_path))
+        except:
+            print('ERROR DELETING IMAGE')
         db.session.delete(item)
         db.session.commit()
         return redirect(url_for('index'))
