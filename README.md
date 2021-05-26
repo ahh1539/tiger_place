@@ -24,7 +24,7 @@ pip3 install flask
 pip install Flask-SQLAlchemy
 pip3 install mysql-connector
 pip3 install sshtunnel
-pip3 install flask_bootstrap
+pip3 install google_auth_oauthlib
 ```
 ## Running the App:
 ```

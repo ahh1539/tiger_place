@@ -4,12 +4,10 @@ import os
 
 from datetime import timedelta
 from flask import Flask
-from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from google_auth_oauthlib.flow import Flow
 
 app = Flask(__name__)
-Bootstrap(app)
 
 f=open("mysite/sensitive.txt","r")
 lines=f.readlines()
