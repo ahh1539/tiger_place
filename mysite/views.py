@@ -13,6 +13,11 @@ import google.auth.transport.requests
 from mysite import app, flow, GOOGLE_CLIENT_ID
 from mysite.db import User, Item, db
 
+import mechanicalsoup
+import time
+import argparse
+from urllib.parse import urlparse
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -26,7 +31,7 @@ def login():
             session['user_id'] = user.user_id
             session['name'] = user.full_name
             session['ia'] = user.is_admin
-            print(session['name'], session['user_id'])
+            print(session['name'], session['user_id'], 'LOGGED IN')
             return redirect(url_for('index'))
         error = "Invalid Credentials"
     return render_template("login.html", error=error)
